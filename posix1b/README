@@ -1,0 +1,63 @@
+This library contains implementation of some functions defined
+in POSIX.1b standard, which are not present in Linux: 
+clock, realtime timers, semaphores, shared memory and message
+queues. Timers are emulated using BSD interval timers API:
+setitimer() and getitimer(). Semaphore, shared memory and
+message queues are emulated using standard System V IPC. 
+
+Total list of emulated functions:
+
+	timer_create
+	timer_settimer
+	timer_gettime
+	timer_getoverrun
+	timer_delete
+
+	clock_gettime
+	clock_settime
+	clock_getres
+
+	shm_open
+	shm_unlink
+
+	sem_init
+	sem_open
+	sem_post
+	sem_getvalue
+	sem_wait
+	sem_trywait
+	sem_unlink
+	sem_close
+	sem_destroy
+
+	mq_open
+	mq_close
+	mq_unlink
+	mq_notify
+	mq_send
+	mq_receive
+	mq_getattr
+	mq_setattr
+
+Restrictions:
+
+1) Delivery of timer signals is done by SIGALRM handler event if other
+   signal is requested. The handler of requested signal will be called by
+   SIGALRM handler with siginfo_t argument (which is not passed in Linux).
+   Functions using SIGALRM such as sleep() and alarm() can interfer with 
+   raltime timers and stop them by replacing SIGALRM handler.
+
+2) Notification about message receiving is emulated by writing in shared
+   memory identifier of process intersted in signal and number of the signal.
+   So process sending a message will check this shared variable and 
+   send signal to the process by kill(). siginfo_t argument is not available 
+   in signal handlers in this case. 
+
+3) timer_getoverrun function is replaced with a stub.
+
+
+Please send your suggestions and bug reports to
+konstantin.knizhnik@digital.com
+
+Look for updates and new products at my homepage:
+http://www.ispras.ru/~knizhnik

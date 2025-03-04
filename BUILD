@@ -102,8 +102,10 @@ $GLIBCDIR/nptl/libpthread.so.0 $GLIBCDIR/libc.so.6 -Wl,-rpath,$GLIBCDIR:$GLIBCDI
 
 posix1b
 -------
+
 To run the semaphore test suite against posix1b, you will need to download
-and install the posix1b library.
+and install the posix1b library. Alternatively, a copy of it is available
+under the posix1b directory, located in this source tree. This copy was downloaded from the following site on March 4, 2025.
 
 Start downloading it from: http://www.garret.ru/~knizhnik/posix1b.tar.gz
 Once you have the library compiled and installed in /usr/lib.
