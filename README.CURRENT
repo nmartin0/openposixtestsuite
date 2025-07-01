@@ -1,0 +1,3 @@
+This repository contains source code for the Open POSIX Test Suite.
+Notably, included here is the posix1b subdirectory which appears
+to be non-standard among the default source tree.
